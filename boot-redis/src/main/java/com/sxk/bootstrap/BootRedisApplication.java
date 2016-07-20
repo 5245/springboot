@@ -25,7 +25,7 @@ public class BootRedisApplication {
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         config.setMaxTotal(Integer.parseInt(redisBundle.getString("redis.pool.maxTotal")));
         List<JedisShardInfo> shards = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             if (redisBundle.containsKey("redis.server." + i + ".ip")) {
                 String ip = redisBundle.getString("redis.server." + i + ".ip");
                 int port = Integer.parseInt(redisBundle.getString("redis.server." + i + ".port"));
@@ -43,7 +43,7 @@ public class BootRedisApplication {
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         config.setMaxTotal(Integer.parseInt(redisBundle.getString("redis.pool.maxTotal")));
         List<JedisShardInfo> shards = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             if (redisBundle.containsKey("redis.static.tag.server." + i + ".ip")) {
                 String ip = redisBundle.getString("redis.static.tag.server." + i + ".ip");
                 int port = Integer.parseInt(redisBundle.getString("redis.static.tag.server." + i + ".port"));

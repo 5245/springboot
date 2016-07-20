@@ -6,11 +6,16 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@Configuration
+/**
+ * 在J2EE容器中运行时的主类 必须继承 SpringBootServletInitializer
+ * @description 
+ * @author sxk
+ * @date 2016年7月19日
+ *
+ */
 public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override

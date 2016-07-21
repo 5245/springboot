@@ -32,6 +32,7 @@ public class SqlSessionMutilSourceDaoSupport extends DaoSupport {
     @Autowired
     private SqlSession   sqlSessionLegacyUsers;
 
+    //可以注入bean,也可以注入List<T>,也可以注入数组
     @Resource
     private SqlSession[] sqlSessions;
 

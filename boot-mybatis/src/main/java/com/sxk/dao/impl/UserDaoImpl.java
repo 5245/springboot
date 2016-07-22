@@ -44,4 +44,5 @@ public class UserDaoImpl implements UserDao {
         Users user = (Users) session.selectOne(namespace + ".queryOneByUid", uidMap);
         return user;
     }
+
 }

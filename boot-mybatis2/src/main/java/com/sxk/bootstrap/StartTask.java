@@ -38,27 +38,31 @@ public class StartTask implements CommandLineRunner {
     public void run(String... args) throws Exception {
         logger.info(appName + "  start.....");
         System.out.println(appDescription);
-        //
-        //        System.out.println(userDao.queryOneByUid());
-        //
-        //        System.out.println(userDao.queryOneByUid(859)); //tableIndex=100
-        //        System.out.println(userDao.queryOneByUid(1033)); //tableIndex=200
-        //        System.out.println(userDao.queryOneByUid(187)); //tableIndex=300
-        //        System.out.println(userDao.queryOneByUid(604)); //tableIndex=400
-        //        System.out.println(userDao.queryOneByUid(633)); //tableIndex=512
-        //        System.out.println(userDao.queryOneByUid(354)); //tableIndex=640
-        //        System.out.println(userDao.queryOneByUid(840)); //tableIndex=768
-        //        System.out.println(userDao.queryOneByUid(1371)); //tableIndex=1000
+
+        /*System.out.println(userDao.queryOneByUid());
+
+        System.out.println(userDao.queryOneByUid(859)); //tableIndex=100
+        System.out.println(userDao.queryOneByUid(1033)); //tableIndex=200
+        System.out.println(userDao.queryOneByUid(187)); //tableIndex=300
+        System.out.println(userDao.queryOneByUid(604)); //tableIndex=400
+        System.out.println(userDao.queryOneByUid(633)); //tableIndex=512
+        System.out.println(userDao.queryOneByUid(354)); //tableIndex=640
+        System.out.println(userDao.queryOneByUid(840)); //tableIndex=768
+        System.out.println(userDao.queryOneByUid(1371)); //tableIndex=1000
+        */
 
         long startTime = System.currentTimeMillis();
         for (int i = 1; i < 100; i++) {
             int memberId = RandomUtils.nextInt(100);
             if (0 != memberId) {
-                System.out.println(userDao.queryOneByUid(memberId));
+                Map<String, Object> params = new HashMap<>();
+                params.put("tableIndex", RoutingDataSource.getTableIndex(memberId));
+                params.put("uid", memberId);
+                RoutingDataSource.setDataSourceKey(RoutingDataSource.getDbIndex(memberId));
+                System.out.println(userDao.queryOneByUid(params));
             }
         }
         System.out.println("耗时s：" + (System.currentTimeMillis() - startTime) / 1000);
-
     }
 
 }

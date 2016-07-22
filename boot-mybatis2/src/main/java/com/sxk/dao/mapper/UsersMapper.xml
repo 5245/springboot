@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxk.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.sxk.model.Users">
+	<constructor>
+	    <idArg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="mobileNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="nickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="photo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="status" jdbcType="TINYINT" javaType="com.sxk.enumeration.Status" typeHandler="com.sxk.enumeration.handler.EnumStatusHandler" />
+	    <arg column="area" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="sex" jdbcType="TINYINT" javaType="com.sxk.enumeration.Gender" typeHandler="com.sxk.enumeration.handler.EnumGenderHandler"/>
+	    <arg column="birthday" jdbcType="DATE" javaType="java.util.Date" />
+	    <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="userKey" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="registDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="lastModifyTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="cinemaFavorites" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    uid, mobileNo, password, nickName, photo, status, area, sex, birthday, email, userName, userKey, registDate, lastModifyTime, cinemaFavorites
+  </sql>
+  
+  <select id="queryOneByUid" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from users_#{tableIndex}
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

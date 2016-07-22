@@ -22,8 +22,8 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @date 2016年7月21日
  *
  */
-@Configuration
-@MapperScan(basePackages = MybatisConfiguration.PACKAGE)
+//@Configuration
+//@MapperScan(basePackages = MybatisConfiguration.PACKAGE)
 public class MybatisConfiguration {
 
     public static final String          PACKAGE         = "com.sxk.dao.mapper";

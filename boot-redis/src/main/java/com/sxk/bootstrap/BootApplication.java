@@ -14,7 +14,7 @@ import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
 
 @SpringBootApplication(scanBasePackages = { "com.sxk" }, exclude = ServletInitializer.class)
-public class BootRedisApplication {
+public class BootApplication {
 
     private static final ResourceBundle redisBundle = ResourceBundle.getBundle("redis");
 
@@ -55,7 +55,7 @@ public class BootRedisApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(BootRedisApplication.class, args);
+        SpringApplication.run(BootApplication.class, args);
     }
 
 }

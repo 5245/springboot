@@ -2,14 +2,16 @@ package com.sxk.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserDO extends BaseDO {
     @ApiModelProperty("用户名称")
-    //@NotEmpty(message = "username is null")
+    @NotEmpty(message = "username is null")
     private String userName;
 
     private String password;
     @ApiModelProperty("手机号")
-    //@NotEmpty(message = "mobileNo is null")
+    @NotEmpty(message = "mobileNo is null")
     private String mobileNo;
 
     private String email;

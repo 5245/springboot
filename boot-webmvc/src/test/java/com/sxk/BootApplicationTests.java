@@ -8,7 +8,8 @@ import javax.mail.internet.MimeMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,7 +20,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.sxk.bootstrap.BootApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = BootApplication.class)
+//@SpringApplicationConfiguration(classes = BootApplication.class)
+@SpringBootTest(classes = BootApplication.class)
 @WebAppConfiguration
 public class BootApplicationTests {
 

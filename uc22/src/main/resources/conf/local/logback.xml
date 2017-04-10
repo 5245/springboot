@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+  <property name="LOG_HOME" value="/data/logs/weiying_usercenter" />  
+  <appender name="db" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${LOG_HOME}/db.log</File>
+    <Append>true</Append>
+    <encoder>
+      <pattern>%date{ISO8601} %thread %logger %M %5p %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/db.log.%d{yyyy-MM-dd_HH}</fileNamePattern>
+      <maxHistory>168</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <appender name="api" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${LOG_HOME}/api.log</File>
+    <Append>true</Append>
+    <encoder>
+      <pattern>%date{ISO8601} %thread %logger %M %5p %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/api.log.%d{yyyy-MM-dd_HH}</fileNamePattern>
+      <maxHistory>168</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <appender name="core" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${LOG_HOME}/core.log</File>
+    <Append>true</Append>
+    <encoder>
+      <pattern>%date{ISO8601} %thread %logger %M %5p %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/core.log.%d{yyyy-MM-dd_HH}</fileNamePattern>
+      <maxHistory>168</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <Target>System.out</Target>
+    <encoder>
+      <pattern>%date{ISO8601} %thread %logger %M %5p %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+  </appender>
+  <appender name="ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <Append>true</Append>
+    <File>${LOG_HOME}/error.log</File>
+    <encoder>
+      <pattern>%date{ISO8601} %thread %logger %M %5p %m%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd_HH}</fileNamePattern>
+      <maxHistory>168</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <logger name="com.wepiao.admin.user.dao.impl" level="INFO">
+    <appender-ref ref="db"/>
+  </logger>
+  <logger name="com.wepiao.admin.user.rest.controller" level="INFO">
+    <appender-ref ref="api"/>
+  </logger>
+  <logger name="com.wepiao.admin.user.service" level="INFO">
+    <appender-ref ref="core"/>
+  </logger>
+  <logger name="com.wepiao.admin.user.mq" level="INFO">
+    <appender-ref ref="core"/>
+  </logger>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="ERR"/>
+  </root>
+</configuration>

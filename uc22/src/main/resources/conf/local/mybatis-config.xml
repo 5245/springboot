@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<mappers>
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UsersMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/OpenIdInfoMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/MobileNoMappingMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/IdRelationMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/IdRelationHistoryMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UserTagMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UserDeviceMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UserDeliveryAddrMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UserReceiverMobileMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/dragon/TWeiyingUsersMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/dragon/TWeiyingUsersUnionIdMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/UserDynamicTagMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/ExtUid2UidMapper.xml" />
+		<mapper resource="com/wepiao/admin/user/dao/mapper/Uid2ExtUidMapper.xml" />
+	</mappers>
+</configuration>

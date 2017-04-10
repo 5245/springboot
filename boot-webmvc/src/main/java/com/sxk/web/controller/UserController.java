@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,43 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public UserDO login(@RequestParam String username, @RequestParam String password) {
+        HttpSession session = getSession();
+        Cookie cookies[] = getRequest().getCookies();
+        for (Cookie c : cookies) {
+            System.out.println("name:" + c.getName());
+            System.out.println("value:" + c.getValue());
+        }
+        session.setAttribute("wpname", "wpsss");
+        Cookie c1 = new Cookie("wpname", "wpname2017");
+        //c1.setMaxAge(60 * 60 * 24);//保留1天  
+        //c1.setMaxAge(120);//2分钟  
+        getResponse().addCookie(c1);
+        String value = (String) session.getAttribute("wpname");
+        System.out.println(value);
         return userService.login(username, password);
+    }
+
+    @RequestMapping(value = "/sleep", method = { RequestMethod.GET, RequestMethod.POST })
+    public String sleepTest(@RequestParam int millisecond) {
+        long start = System.currentTimeMillis();
+        try {
+            Thread.sleep(millisecond);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return (System.currentTimeMillis() - start) + "ms";
+    }
+
+    @RequestMapping(value = "/getcookies", method = RequestMethod.GET)
+    public JSONObject getCookies() {
+        JSONObject result = new JSONObject();
+        Cookie cookies[] = getRequest().getCookies();
+        for (Cookie c : cookies) {
+            System.out.println("name:" + c.getName());
+            System.out.println("value:" + c.getValue());
+            result.put(c.getName(), c.getValue());
+        }
+        return result;
     }
 
     @RequestMapping(value = "/getuserinfo", method = RequestMethod.POST)

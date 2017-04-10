@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 连接老用户体系DB的datasource -->
+	<bean id="dataSourceLegacy" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${jdbc.legacy.url}" />
+		<property name="username" value="${jdbc.legacy.username}" />
+		<property name="password" value="${jdbc.legacy.password}" />
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="20" />
+		<property name="maxWait" value="5000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+		<property name="filters" value="stat" />
+	</bean>
+
+    <!-- 分库分表的datasource -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="50" />
+
+		<property name="maxWait" value="30000" />
+
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<bean id="dataSource1" parent="dataSource">
+		<property name="url" value="${jdbc.1.url}" />
+		<property name="username" value="${jdbc.1.username}" />
+		<property name="password" value="${jdbc.1.password}" />
+	</bean>
+	
+	<bean id="dataSource2" parent="dataSource">
+		<property name="url" value="${jdbc.2.url}" />
+		<property name="username" value="${jdbc.2.username}" />
+		<property name="password" value="${jdbc.2.password}" />
+	</bean>
+	
+	<bean id="dataSource3" parent="dataSource">
+		<property name="url" value="${jdbc.3.url}" />
+		<property name="username" value="${jdbc.3.username}" />
+		<property name="password" value="${jdbc.3.password}" />
+	</bean>
+	
+	<bean id="dataSource4" parent="dataSource">
+		<property name="url" value="${jdbc.4.url}" />
+		<property name="username" value="${jdbc.4.username}" />
+		<property name="password" value="${jdbc.4.password}" />
+	</bean>
+	
+	<bean id="dataSource5" parent="dataSource">
+		<property name="url" value="${jdbc.5.url}" />
+		<property name="username" value="${jdbc.5.username}" />
+		<property name="password" value="${jdbc.5.password}" />
+	</bean>
+	
+	<bean id="dataSource6" parent="dataSource">
+		<property name="url" value="${jdbc.6.url}" />
+		<property name="username" value="${jdbc.6.username}" />
+		<property name="password" value="${jdbc.6.password}" />
+	</bean>
+	
+	<bean id="dataSource7" parent="dataSource">
+		<property name="url" value="${jdbc.7.url}" />
+		<property name="username" value="${jdbc.7.username}" />
+		<property name="password" value="${jdbc.7.password}" />
+	</bean>
+
+	<!-- mybatis3与spring整合 -->
+	<bean id="sqlSessionFactoryLegacyUsers" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSourceLegacy" />
+	</bean> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="sqlSessionFactory1" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource1" />
+	</bean>
+	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource2" />
+	</bean>
+	<bean id="sqlSessionFactory3" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource3" />
+	</bean>
+	<bean id="sqlSessionFactory4" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource4" />
+	</bean>
+	<bean id="sqlSessionFactory5" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource5" />
+	</bean>
+	<bean id="sqlSessionFactory6" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource6" />
+	</bean>
+	<bean id="sqlSessionFactory7" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource7" />
+	</bean>
+
+	<bean id="sessionMutilSourceDaoSupport" class="com.wepiao.admin.user.common.SqlSessionMutilSourceDaoSupport">
+		<property name="sessionFactoryList" >
+			<list>
+				<ref bean="sqlSessionFactory"/>
+				<ref bean="sqlSessionFactory1"/>
+				<ref bean="sqlSessionFactory2"/>
+				<ref bean="sqlSessionFactory3"/>
+				<ref bean="sqlSessionFactory4"/>
+				<ref bean="sqlSessionFactory5"/>
+				<ref bean="sqlSessionFactory6"/>
+				<ref bean="sqlSessionFactory7"/>
+			</list>
+		</property>
+		<property name="tableCount" value="${jdbc.tableCount}" />
+		<property name="sqlSessionFactoryLegacyUsers" ref="sqlSessionFactoryLegacyUsers" />
+	</bean>
+
+</beans>

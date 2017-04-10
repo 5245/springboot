@@ -12,9 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,10 +22,12 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sxk.bootstrap.BootApplication;
 import com.sxk.model.UserDO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MockServletContext.class)
+//@SpringApplicationConfiguration(classes = BootApplication.class)
+@SpringBootTest(classes = BootApplication.class)
 @WebAppConfiguration
 public class UserControllerTest {
 
@@ -76,10 +77,8 @@ public class UserControllerTest {
 
         // 5、get一个id为1的user 
         request = get("/user/1");
-        mvc.perform(request)
-                .andExpect(
-                        content().string(
-                                equalTo("{\"id\":1,\"userName\":\"测试终极大师\",\"password\":null,\"mobileNo\":\"33333333\",\"email\":null}")));
+        mvc.perform(request).andExpect(
+                content().string(equalTo("{\"id\":1,\"userName\":\"测试终极大师\",\"password\":null,\"mobileNo\":\"33333333\",\"email\":null}")));
 
         // 6、del删除id为1的user 
         request = delete("/user/1");

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head lang="en">
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+	<h1 th:text="${host}">Hello World</h1>
+
+	<table>
+		<thead>
+			<!-- <tr>
+				<th th:text="#{msgs.headers.name}">Name</th>
+				<th th:text="#{msgs.headers.price}">Price</th>
+			</tr> -->
+		</thead>
+		<tbody>
+			<tr th:each="prod : ${allProducts}">
+				<td th:text="${prod.name}">Oranges</td>
+				<td th:text="${#numbers.formatDecimal(prod.price,1,2)}">0.99</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</body>
+</html>

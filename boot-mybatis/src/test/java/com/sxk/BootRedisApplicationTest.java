@@ -13,7 +13,7 @@ import com.sxk.bootstrap.BootApplication;
 //@SpringApplicationConfiguration(classes = BootApplication.class)
 @SpringBootTest(classes = BootApplication.class)
 @WebAppConfiguration
-public class BootRedisApplicationTests {
+public class BootRedisApplicationTest {
 
     @Test
     public void contextLoads() {

@@ -36,6 +36,7 @@ public class RedisConfiguration {
         String ip = redisBundle.getString("redis.server.0.ip");
         int port = Integer.parseInt(redisBundle.getString("redis.server.0.port"));
         JedisShardInfo shard = new JedisShardInfo(ip, port);
+        shard.setSoTimeout(soTimeout);
         return new JedisConnectionFactory(shard);
     }
 

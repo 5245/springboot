@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.Users">
+	<constructor>
+	    <idArg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="mobileNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="nickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="photo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="status" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.Status" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler" />
+	    <arg column="area" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="sex" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.Gender" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumGenderHandler"/>
+	    <arg column="birthday" jdbcType="DATE" javaType="java.util.Date" />
+	    <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="userKey" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="registDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="lastModifyTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="cinemaFavorites" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="extUid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    uid, mobileNo, password, nickName, photo, status, area, sex, birthday, email, userName, userKey, registDate, lastModifyTime, cinemaFavorites ,extUid
+  </sql>
+  
+  <select id="queryOneByUid" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from users_#{tableIndex}
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryOneByMobileNo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from users_#{tableIndex}
+    where mobileNo = #{mobileNo,jdbcType=VARCHAR}
+  </select>
+  
+  
+   <insert id="insert" parameterType="com.wepiao.user.common.entry.Users">
+    insert into users_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="mobileNo != null">
+        mobileNo,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickName != null">
+        nickName,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="userKey != null">
+        userKey,
+      </if>
+      <if test="registDate != null">
+        registDate,
+      </if>
+      <if test="lastModifyTime != null">
+        lastModifyTime,
+      </if>
+      <if test="cinemaFavorites != null">
+        cinemaFavorites,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="mobileNo != null">
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumGenderHandler},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userKey != null">
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="registDate != null">
+        #{registDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cinemaFavorites != null">
+        #{cinemaFavorites,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.wepiao.user.common.entry.Users">
+    update users_#{tableIndex}
+    <set>
+      <if test="mobileNo != null">
+        mobileNo = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumGenderHandler},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userKey != null">
+        userKey = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaFavorites != null">
+        cinemaFavorites = #{cinemaFavorites,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="delete" parameterType="java.util.Map">
+    delete from users_#{tableIndex}
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  
+  <update id="updatePwd" parameterType="java.util.Map">
+    update users_#{tableIndex}
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateStatus" parameterType="java.util.Map">
+    update users_#{tableIndex}
+    <set>
+        status = #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateCinemaFavorites" parameterType="java.util.Map">
+    update users_#{tableIndex}
+    <set>
+        cinemaFavorites = #{cinemaFavorites,jdbcType=VARCHAR},
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

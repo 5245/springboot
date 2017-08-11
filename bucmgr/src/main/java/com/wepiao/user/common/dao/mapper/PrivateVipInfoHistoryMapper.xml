@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.PrivateVipInfoHistoryMapper">
+	<resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.PrivateVipInfoHistory">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="member_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="mobile_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="open_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="vip_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="start_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="end_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="vip_status" jdbcType="INTEGER"
+				javaType="com.wepiao.user.common.entry.enumeration.PrivateVipStatus"
+				typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumPrivateVipStatusHandler" />
+			<arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="remove_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		</constructor>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,member_id,mobile_no,open_id,vip_id,start_date,end_date,vip_status,create_time,remove_time
+	</sql>
+
+	<select id="queryAvailablePrivateVipByMemberId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from pvip_history_#{tableIndex} 
+		where member_id = #{memberId,jdbcType=INTEGER} and 
+		vip_status = 
+		#{vipStatus,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumPrivateVipStatusHandler}
+	</select>
+
+	<insert id="insert" parameterType="com.wepiao.user.common.entry.PrivateVipInfoHistory">
+		insert into pvip_history_#{tableIndex} 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="memberId != null">
+				member_id,
+			</if>
+			<if test="mobileNo != null">
+				mobile_no,
+			</if>
+			<if test="openId != null">
+				open_id,
+			</if>
+			<if test="vipId != null">
+				vip_id,
+			</if>
+			<if test="startDate != null">
+				start_date,
+			</if>
+			<if test="endDate != null">
+				end_date,
+			</if>
+			<if test="vipStatus != null">
+				vip_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="removeTime != null">
+				remove_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="memberId != null">
+				#{memberId,jdbcType=INTEGER},
+			</if>
+			<if test="mobileNo != null">
+				#{mobileNo,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="vipId != null">
+				#{vipId,jdbcType=INTEGER},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=VARCHAR},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStatus != null">
+				#{vipStatus,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumPrivateVipStatusHandler},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="removeTime != null">
+				#{removeTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.wepiao.user.common.entry.PrivateVipInfoHistory">
+		update pvip_history_#{tableIndex}  
+		<set>
+			<if test="memberId != null">
+				member_id=#{memberId,jdbcType=INTEGER},
+			</if>
+			<if test="mobileNo != null">
+				mobile_no=#{mobileNo,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				open_id=#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="vipId != null">
+				vip_id=#{vipId,jdbcType=INTEGER},
+			</if>
+			<if test="startDate != null">
+				start_date=#{startDate,jdbcType=VARCHAR},
+			</if>
+			<if test="endDate != null">
+				end_date=#{endDate,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStatus != null">
+				vip_status=#{vipStatus,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumPrivateVipStatusHandler},
+			</if>
+			<if test="createTime != null">
+				create_time=#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="removeTime != null">
+				remove_time=#{removeTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

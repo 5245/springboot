@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.UserDeliveryAddrMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.UserDeliveryAddr">
+	<constructor>
+	    <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="open_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="national_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="detailed_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="receiver" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="receiver_mobile" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="zip_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="source_code" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.SourceCode" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumSourceCodeHandler" />
+	    <arg column="is_default" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="is_del" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="create_time" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, open_id, national_code, detailed_address, receiver, receiver_mobile, zip_code, source_code, is_default, is_del, create_time
+  </sql>
+  
+  <select id="queryOneById" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from userdeliveryaddr_#{tableIndex} 
+    where id = #{id,jdbcType=INTEGER} 
+    and open_id = #{openId,jdbcType=VARCHAR} 
+    and is_del = #{isDel,jdbcType=INTEGER} 
+  </select>
+
+  <select id="queryByOpenId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from userdeliveryaddr_#{tableIndex} 
+    where open_id = #{openId,jdbcType=VARCHAR}
+    and is_del = #{isDel,jdbcType=INTEGER} limit #{max,jdbcType=INTEGER}
+  </select>
+  
+   <insert id="insert" parameterType="com.wepiao.user.common.entry.UserDeliveryAddr">
+    insert into userdeliveryaddr_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="detailedAddress != null">
+        detailed_address,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile,
+      </if>
+       <if test="zipCode != null">
+        zip_code,
+      </if>
+       <if test="sourceCode != null">
+        source_code,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null">
+        #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+       <if test="zipCode != null">
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCode != null">
+        #{sourceCode,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumSourceCodeHandler},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.wepiao.user.common.entry.UserDeliveryAddr">
+    update userdeliveryaddr_#{tableIndex}
+    <set>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null">
+        detailed_address = #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+       <if test="zipCode != null">
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCode != null">
+        source_code = #{sourceCode,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumSourceCodeHandler},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateCancelDefaultAddrByOpenId" parameterType="java.util.Map">
+    update userdeliveryaddr_#{tableIndex} 
+    set is_default = #{isDefault,jdbcType=INTEGER} 
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

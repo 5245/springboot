@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<swagger.version>2.2.2</swagger.version>
 		<zipkin.version>3.9.0</zipkin.version>
 	</properties>
@@ -72,14 +72,19 @@
 
 		<!-- apache commons util -->
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 		</dependency>
 
+		<!-- 编译时解析注解，生成getter和setter方法和contructor -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 		<!-- use 5.1.27 or later version, see the bug here: https://bugs.mysql.com/bug.php?id=36565 -->
 		<dependency>
@@ -121,51 +126,51 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
-		
+
 		<!-- zipkin -->
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-core</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-core</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-spancollector-http</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-spancollector-http</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-web-servlet-filter</artifactId>
-		    <version>${zipkin.version}</version>
-		</dependency> 
-		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-okhttp</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-web-servlet-filter</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
-		
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-jaxrs2</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-okhttp</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-jersey2</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-jaxrs2</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
-		
-		 <dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-spring-web-servlet-interceptor</artifactId>
-		    <version>${zipkin.version}</version>
-		</dependency>
-		
+
 		<dependency>
-		    <groupId>io.zipkin.brave</groupId>
-		    <artifactId>brave-apache-http-interceptors</artifactId>
-		    <version>${zipkin.version}</version>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-jersey2</artifactId>
+			<version>${zipkin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-spring-web-servlet-interceptor</artifactId>
+			<version>${zipkin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-apache-http-interceptors</artifactId>
+			<version>${zipkin.version}</version>
 		</dependency>
 
 	</dependencies>

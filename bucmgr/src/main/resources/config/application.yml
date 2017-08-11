@@ -1,0 +1,78 @@
+app:
+  name: ucmgr application
+  description: usercenter manager
+spring:
+  redis:
+    url: redis://:@192.168.101.47:7000/0
+redisProps:
+  number: ${random.int[10,20]}
+  pool:
+    maxActive: 8
+    maxIdle: 10
+    minIdle: 10
+  sharded:
+    timeout: 500
+    testOnBorrow: false
+    passwordNeed: false
+    arr: 192.168.101.47:7000,192.168.101.47:7001,192.168.101.47:7002
+    uc_host:
+    - redis://192.168.101.47:7000/0
+    - redis://192.168.101.47:7001/0
+    - redis://192.168.101.47:7002/0
+    tag_host:
+    - redis://192.168.101.47:7000/0
+    - redis://192.168.101.47:7001/0
+    - redis://192.168.101.47:7002/0
+    dtag_host:
+      1: 192.168.101.47:7000
+      2: 192.168.101.47:7001
+      3: 192.168.101.47:7002
+    cluster_host:
+    - 10.104.221.217:7000
+    - 10.104.221.217:7001
+mysqlProps:
+  dbCount: 8
+  tableCount: 128
+  idBackup:
+    url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  uc:
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+  - url: jdbc:mysql://10.135.118.88:3306/ucenter?useUnicode=true&characterEncoding=UTF-8
+    username: ucenter
+    password: CKYxH43qky
+myProps:
+  simpleProp: simplePropValue
+  arrayProps: 1,2,3,4,5
+  listProp1:
+  - name: abc
+    value: abcValue
+  - name: efg
+    value: efgValue
+  listProp2:
+  - config2Value1
+  - config2Vavlue2
+  mapProps:
+    key1: value1
+    key2: value2

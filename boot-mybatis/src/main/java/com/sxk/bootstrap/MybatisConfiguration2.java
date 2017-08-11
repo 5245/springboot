@@ -24,8 +24,8 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @date 2016年7月21日
  *
  */
-@Configuration
-@MapperScan(basePackages = MybatisConfiguration2.PACKAGE)
+//@Configuration
+//@MapperScan(basePackages = MybatisConfiguration2.PACKAGE)
 public class MybatisConfiguration2 {
 
     public static final String          PACKAGE         = "com.sxk.dao.mapper";
@@ -82,9 +82,9 @@ public class MybatisConfiguration2 {
         //        String username = jdbcBundle.getString("jdbc.legacy.username");
         //        String password = jdbcBundle.getString("jdbc.legacy.password");
 
-        String url = jdbcBundle.getString("jdbc.url");
-        String username = jdbcBundle.getString("jdbc.username");
-        String password = jdbcBundle.getString("jdbc.password");
+        String url = jdbcBundle.getString("jdbc.idBackup.url");
+        String username = jdbcBundle.getString("jdbc.idBackup.username");
+        String password = jdbcBundle.getString("jdbc.idBackup.password");
 
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(url);

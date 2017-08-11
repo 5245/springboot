@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.WechatCityMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.WechatCity">
+	<constructor>
+		<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="national_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="city_type" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.CityType" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumCityTypeHandler" />
+	    <arg column="national_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="parent_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="zip_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="province_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="city_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="district_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="district_id_other" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,national_code, city_type, national_name, parent_code,zip_code,province_id,city_id,district_id,district_id_other
+  </sql>
+  
+  <select id="queryAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_city
+  </select>
+  
+  
+</mapper>

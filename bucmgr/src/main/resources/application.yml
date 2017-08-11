@@ -1,0 +1,49 @@
+app:
+  name: ucmgr application
+  description: usercenter manager
+banner:
+  charset: UTF-8
+  location: classpath:template/static/banner.txt
+  image:
+    location: classpath:template/static/icon.ico
+    width: 76
+    height: 76
+    margin: 2
+    invert: false
+redisProps:
+  number: ${random.int}
+  pool:
+    maxActive: 8
+    maxIdle: 10
+    minIdle: 10
+  sharded:
+    timeout: 500
+    testOnBorrow: false
+    passwordNeed: false
+    arr: 192.168.101.47:7000,192.168.101.47:7001,192.168.101.47:7002
+    uc_host:
+    - 192.168.101.47:7000
+    - 192.168.101.47:7001
+    - 192.168.101.47:7002
+    tag_host:
+    - 192.168.101.47:7000
+    - 192.168.101.47:7001
+    - 192.168.101.47:7002
+    dtag_host:
+      1: 192.168.101.47:7000
+      2: 192.168.101.47:7001
+      3: 192.168.101.47:7002
+myProps:
+  simpleProp: simplePropValue
+  arrayProps: 1,2,3,4,5
+  listProp1:
+  - name: abc
+    value: abcValue
+  - name: efg
+    value: efgValue
+  listProp2:
+  - config2Value1
+  - config2Vavlue2
+  mapProps:
+    key1: value1
+    key2: value2

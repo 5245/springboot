@@ -1,6 +1,6 @@
 package com.sxk.model;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * @description 封装所有model的通用属性,所有model需要继承该类

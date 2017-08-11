@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.VipCardInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.VipCardInfo">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="cardNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="cardType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="subCardType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="memberId" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="totalUsed" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="startCountDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="endCountDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="expireTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		</constructor>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,cardNo,cardType,subCardType,memberId,totalUsed,
+		startCountDate,endCountDate,createTime,updateTime,expireTime
+	</sql>
+
+	<select id="queryOneByCardNo" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from vipcardinfo_#{tableIndex}
+		where cardNo =
+		#{cardNo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryAllVipCardInfo" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from vipcardinfo_#{tableIndex}
+	</select>
+
+	<insert id="insert" parameterType="com.wepiao.user.common.entry.VipCardInfo">
+		insert into vipcardinfo_#{tableIndex}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cardNo != null">
+				cardNo,
+			</if>
+			<if test="cardType != null">
+				cardType,
+			</if>
+			<if test="subCardType != null">
+				subCardType,
+			</if>
+			<if test="memberId != null">
+				memberId,
+			</if>
+			<if test="totalUsed != null">
+				totalUsed,
+			</if>
+			<if test="startCountDate != null">
+				startCountDate,
+			</if>
+			<if test="endCountDate != null">
+				endCountDate,
+			</if>
+			<if test="createTime != null">
+				createTime,
+			</if>
+			<if test="updateTime != null">
+				updateTime,
+			</if>
+			<if test="expireTime != null">
+				expireTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cardNo != null">
+				#{cardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cardType != null">
+				#{cardType,jdbcType=INTEGER},
+			</if>
+			<if test="subCardType != null">
+				#{subCardType,jdbcType=INTEGER},
+			</if>
+			<if test="memberId != null">
+				#{memberId,jdbcType=VARCHAR},
+			</if>
+			<if test="totalUsed != null">
+				#{totalUsed,jdbcType=INTEGER},
+			</if>
+			<if test="startCountDate != null">
+				#{startCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endCountDate != null">
+				#{endCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expireTime != null">
+				#{expireTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.wepiao.user.common.entry.VipCardInfo">
+		update vipcardinfo_#{tableIndex}
+		<set>
+			<if test="totalUsed != null">
+				totalUsed=#{totalUsed,jdbcType=INTEGER},
+			</if>
+			<if test="startCountDate != null">
+				startCountDate=#{startCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endCountDate != null">
+				endCountDate=#{endCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				createTime=#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				updateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expireTime != null">
+				expireTime=#{expireTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where cardNo =
+		#{cardNo,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		vipcardinfo_#{tableIndex}
+		where cardNo =
+		#{cardNo,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="updateTotalUsed" parameterType="java.util.Map">
+		update vipcardinfo_#{tableIndex}
+		<set>
+			<if test="totalUsed != null">
+				totalUsed=#{totalUsed,jdbcType=INTEGER},
+			</if>
+		</set>
+		where cardNo =
+		#{cardNo,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateUpdateTime" parameterType="java.util.Map">
+		update vipcardinfo_#{tableIndex}
+		<set>
+			<if test="updateTime != null">
+				updateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where cardNo =
+		#{cardNo,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

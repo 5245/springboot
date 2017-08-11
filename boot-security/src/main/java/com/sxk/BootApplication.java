@@ -1,12 +1,16 @@
 package com.sxk;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-@SpringBootApplication
+//@SpringBootApplication(scanBasePackages = "com.sxk")
+@EnableAutoConfiguration
 public class BootApplication {
+    public static void main(String[] args) {
+        //自动重启
+        System.setProperty("spring.devtools.restart.enabled", "false");
 
-	public static void main(String[] args) {
-		SpringApplication.run(BootApplication.class, args);
-	}
+        SpringApplication.run(BootApplication.class, args);
+    }
+
 }

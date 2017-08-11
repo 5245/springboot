@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.OpenIdInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.OpenIdInfo">
+    <constructor>
+	    <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="openId" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="otherId" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.OtherID" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler" />
+	    <arg column="subOtherId" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.SubOtherID" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumSubOtherIDHandler" />
+	    <arg column="nickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="photo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="cinemaFavorites" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="bindingStatus" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.BindingStatus" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler" />
+	    <arg column="lastLoginTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="status" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.Status" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler" />
+	    <arg column="passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="userSource" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.UserSource" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumUserSourceHandler" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, openId, otherId, subOtherId, nickName, photo, createTime, cinemaFavorites, bindingStatus, lastLoginTime, status, passwd, userSource
+  </sql>
+  <resultMap id="BlackListResultMap" type="com.wepiao.user.common.entry.OpenId">
+    <constructor>
+	    <arg column="openId" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="otherId" jdbcType="TINYINT" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Black_List_Column_List">
+    openId, otherId
+  </sql>
+  
+  <select id="queryOneByOpenId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from OpenID_#{tableIndex}
+    where OpenID = #{OpenID,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryBlackList" resultMap="BlackListResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Black_List_Column_List" />
+    from OpenID_#{tableIndex}
+    where status = 8
+  </select>
+  
+  <select id="queryOpenIdInfoList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+	from OpenID_#{tableIndex}
+	<where>
+		<if test="lastLoginTime != null">
+			lastLoginTime &gt;=#{lastLoginTime,jdbcType=TIMESTAMP}
+		</if>
+	</where>
+	limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  
+   <insert id="insert" parameterType="com.wepiao.user.common.entry.OpenIdInfo"  useGeneratedKeys="true" keyProperty="id">
+    insert into OpenID_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="openId != null">
+        openId,
+      </if>
+      <if test="otherId != null">
+        otherId,
+      </if>
+      <if test="subOtherId != null">
+        subOtherId,
+      </if>
+      <if test="nickName != null">
+        nickName,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="cinemaFavorites != null">
+        cinemaFavorites,
+      </if>
+      <if test="bindingStatus != null">
+        bindingStatus,
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="passwd != null">
+        passwd,
+      </if>
+      <if test="userSource != null">
+        userSource,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="otherId != null">
+        #{otherId,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+      </if>
+      <if test="subOtherId != null">
+        #{subOtherId,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumSubOtherIDHandler},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cinemaFavorites != null">
+        #{cinemaFavorites,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingStatus != null">
+        #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+      </if>
+      <if test="passwd != null">
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSource != null">
+        #{userSource,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumUserSourceHandler},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.wepiao.user.common.entry.OpenIdInfo">
+    update OpenID_#{tableIndex}
+    <set>
+      <!-- 去掉，不允许更新其本身 -->
+      <!-- if test="openId != null">
+        openId = #{openId,jdbcType=VARCHAR},
+      </if -->
+      <if test="otherId != null">
+        otherId = #{otherId,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+      </if>
+      <if test="subOtherId != null">
+        subOtherId = #{subOtherId,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumSubOtherIDHandler},
+      </if>
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaFavorites != null">
+        cinemaFavorites = #{cinemaFavorites,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingStatus != null">
+        bindingStatus = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwd != null">
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSource != null">
+        userSource = #{userSource,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumUserSourceHandler},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateCinemaFavorites" parameterType="java.util.Map">
+    update OpenID_#{tableIndex}
+    <set>
+        cinemaFavorites = #{cinemaFavorites,jdbcType=VARCHAR},
+    </set>
+    where OpenID = #{OpenID,jdbcType=VARCHAR} and OtherID = #{OtherID,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+  </update>
+  
+  <update id="updateStatus" parameterType="java.util.Map">
+    update OpenID_#{tableIndex}
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumStatusHandler},
+      </if>
+    </set>
+    where OpenID = #{OpenID,jdbcType=VARCHAR} and OtherID = #{OtherID,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+  </update>
+  
+  <update id="updateBindingStatus" parameterType="java.util.Map">
+    update OpenID_#{tableIndex}
+    <set>
+      <if test="bindingStatus != null">
+        bindingStatus = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+    </set>
+    where OpenID = #{OpenID,jdbcType=VARCHAR} and OtherID = #{OtherID,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+  </update>
+  
+  <delete id="delete" parameterType="java.util.Map">
+    delete from OpenID_#{tableIndex}
+    where OpenID = #{OpenID,jdbcType=VARCHAR} and OtherID = #{OtherID,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+  </delete>
+</mapper>

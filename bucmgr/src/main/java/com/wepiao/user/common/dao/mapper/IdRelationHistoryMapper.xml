@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.IdRelationHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.IdRelationHistory">
+	<constructor>
+	    <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="parent_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="parent_idtype" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.OtherID" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler" />
+	    <arg column="child_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="child_idtype" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.OtherID" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler" />
+	    <arg column="binding_status" jdbcType="TINYINT" javaType="com.wepiao.user.common.entry.enumeration.BindingStatus" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler" />
+	    <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, parent_idtype, child_id, child_idtype, binding_status, updatetime
+  </sql>
+  
+  <select id="queryRelationByParent" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from idrelationhistory_#{tableIndex}
+    where parent_id = #{parentId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryRelationByParentAndStatus" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from idrelationhistory_#{tableIndex}
+    where parent_id = #{parentId,jdbcType=VARCHAR} and binding_status = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler}
+  </select>
+  
+   <insert id="insertRelation" parameterType="com.wepiao.user.common.entry.IdRelationHistory" useGeneratedKeys="true" keyProperty="id">
+    insert into idrelationhistory_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="parentIdType != null">
+        parent_idtype,
+      </if>
+      <if test="childId != null">
+        child_id,
+      </if>
+      <if test="childIdType != null">
+        child_idtype,
+      </if>
+      <if test="bindingStatus != null">
+        binding_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIdType != null">
+        #{parentIdType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+      </if>
+      <if test="childId != null">
+        #{childId,jdbcType=VARCHAR},
+      </if>
+      <if test="childIdType != null">
+        #{childIdType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+      </if>
+      <if test="bindingStatus != null">
+        #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+    </trim>
+    on duplicate key update binding_status = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler}
+  </insert>
+  
+  <update id="updateBindingStatus" parameterType="java.util.Map">
+    update idrelationhistory_#{tableIndex}
+    <set>
+      <if test="bindingStatus != null">
+        binding_status = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+    </set>
+    where parent_id = #{parentId,jdbcType=VARCHAR} and child_id = #{childId,jdbcType=VARCHAR} 
+  </update>
+  
+    
+  <update id="updateAllBindingStatus" parameterType="java.util.Map">
+    update idrelationhistory_#{tableIndex}
+    <set>
+      <if test="bindingStatus != null">
+        binding_status = #{bindingStatus,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumBindingStatusHandler},
+      </if>
+    </set>
+    where parent_id = #{parentId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

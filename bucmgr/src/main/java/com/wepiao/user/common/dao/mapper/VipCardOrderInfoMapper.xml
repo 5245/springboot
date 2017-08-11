@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.VipCardOrderInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.VipCardOrderInfo">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="orderId" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="openId" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="cardNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="lockedNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="startCountDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="endCountDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="frequencyLimitation" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="lockTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="releaseTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="consumeTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="refundTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="status" jdbcType="TINYINT"
+				javaType="com.wepiao.user.common.entry.enumeration.VipCardOrderStatus"
+				typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOrderStatusHandler" />
+		</constructor>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,orderId,openId,cardNo,lockedNum,startCountDate,endCountDate,frequencyLimitation,
+		lockTime,releaseTime,consumeTime,refundTime,status
+	</sql>
+
+	<select id="queryOneByOrderId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from vipcardorderinfo_#{tableIndex}
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insert" parameterType="com.wepiao.user.common.entry.VipCardOrderInfo">
+		insert into vipcardorderinfo_#{tableIndex}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				orderId,
+			</if>
+			<if test="openId != null">
+				openId,
+			</if>
+			<if test="cardNo != null">
+				cardNo,
+			</if>
+			<if test="lockedNum != null">
+				lockedNum,
+			</if>
+			<if test="startCountDate != null">
+				startCountDate,
+			</if>
+			<if test="endCountDate != null">
+				endCountDate,
+			</if>
+			<if test="frequencyLimitation != null">
+				frequencyLimitation,
+			</if>
+			<if test="lockTime != null">
+				lockTime,
+			</if>
+			<if test="releaseTime != null">
+				releaseTime,
+			</if>
+			<if test="consumeTime != null">
+				consumeTime,
+			</if>
+			<if test="refundTime != null">
+				refundTime,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="cardNo != null">
+				#{cardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="lockedNum != null">
+				#{lockedNum,jdbcType=INTEGER},
+			</if>
+			<if test="startCountDate != null">
+				#{startCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endCountDate != null">
+				#{endCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="frequencyLimitation != null">
+				#{frequencyLimitation,jdbcType=INTEGER},
+			</if>
+			<if test="lockTime != null">
+				#{lockTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="releaseTime != null">
+				#{releaseTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consumeTime != null">
+				#{consumeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundTime != null">
+				#{refundTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status =
+				#{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOrderStatusHandler},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.wepiao.user.common.entry.VipCardOrderInfo">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			<if test="lockedNum != null">
+				lockedNum=#{lockedNum,jdbcType=INTEGER},
+			</if>
+			<if test="startCountDate != null">
+				startCountDate=#{startCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endCountDate != null">
+				endCountDate=#{endCountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="frequencyLimitation != null">
+				frequencyLimitation=#{frequencyLimitation,jdbcType=INTEGER},
+			</if>
+			<if test="lockTime != null">
+				lockTime=#{lockTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="releaseTime != null">
+				releaseTime=#{releaseTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consumeTime != null">
+				consumeTime=#{consumeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundTime != null">
+				refundTime=#{refundTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status =
+				#{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOrderStatusHandler},
+			</if>
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		vipcardorderinfo_#{tableIndex}
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="updateStatus" parameterType="java.util.Map">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			status =
+			#{status,jdbcType=TINYINT,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOrderStatusHandler},
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateLockTime" parameterType="java.util.Map">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			<if test="lockTime != null">
+				lockTime=#{lockTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateReleaseTime" parameterType="java.util.Map">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			<if test="releaseTime != null">
+				releaseTime=#{releaseTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateConsumeTime" parameterType="java.util.Map">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			<if test="consumeTime != null">
+				consumeTime = #{consumeTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateRefundTime" parameterType="java.util.Map">
+		update vipcardorderinfo_#{tableIndex}
+		<set>
+			<if test="refundTime != null">
+				refundTime=#{refundTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where orderId =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

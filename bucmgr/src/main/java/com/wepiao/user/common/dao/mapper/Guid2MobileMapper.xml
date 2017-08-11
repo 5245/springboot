@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wepiao.user.common.dao.Guid2MobileMapper" >
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.Guid2Mobile" >
+    <constructor>
+	    <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="guid" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="mobileNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="isMember" jdbcType="TINYINT" javaType="java.lang.Boolean" />
+	    <arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, guid, mobileNo, isMember, createTime, updateTime
+  </sql>
+  <select id="queryOneByGuid" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from Guid2Mobile_#{tableIndex}
+    where guid = #{guid, jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.wepiao.user.common.entry.Guid2Mobile" >
+    insert into Guid2Mobile_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="guid != null" >
+        guid,
+      </if>
+      <if test="mobileNo != null" >
+        mobileNo,
+      </if>
+      <if test="isMember != null" >
+        isMember,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="guid != null" >
+        #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isMember != null" >
+        #{isMember,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByGuidAndId" parameterType="com.wepiao.user.common.entry.Guid2Mobile" >
+    update Guid2Mobile_#{tableIndex}
+    <set>
+      <if test="mobileNo != null" >
+        mobileNo = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isMember != null" >
+        isMember = #{isMember,jdbcType=TINYINT},
+      </if>
+    </set>
+    where guid = #{guid,jdbcType=VARCHAR} and id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

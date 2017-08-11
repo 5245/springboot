@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wepiao.user.common.dao.OpenId2ReceiverMobileMapper" >
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.OpenId2ReceiverMobile" >
+    <constructor>
+	    <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="openId" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="mobileNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="serviceType" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.InternalServiceType" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler" />
+	    <arg column="isVerified" jdbcType="TINYINT" javaType="java.lang.Boolean" />
+	    <arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, openId, mobileNo, serviceType, isVerified, createTime, updateTime
+  </sql>
+  <select id="queryAllByOpenId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from OpenId2ReceiverMobile_#{tableIndex}
+    where openId = #{openId,jdbcType=VARCHAR} order by updatetime
+  </select>
+  <select id="queryAllByOpenIdAndServiceType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from OpenId2ReceiverMobile_#{tableIndex}
+    where openId = #{openId,jdbcType=VARCHAR} and serviceType = #{serviceType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler} order by updateTime
+  </select>
+  <select id="queryLatestOneByOpenIdAndServiceType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from OpenId2ReceiverMobile_#{tableIndex}
+    where openId = #{openId,jdbcType=VARCHAR} and serviceType = #{serviceType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler} 
+    and updateTime = (select max(updateTime) from OpenId2ReceiverMobile_#{tableIndex} where openId = #{openId,jdbcType=VARCHAR} and serviceType = #{serviceType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler})
+  </select>
+  <select id="queryOneByOpenIdAndMobileAndServiceType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from OpenId2ReceiverMobile_#{tableIndex}
+    where openId = #{openId,jdbcType=VARCHAR} and mobileNo = #{mobileno,jdbcType=VARCHAR} and serviceType = #{serviceType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler}
+  </select>
+  <delete id="deleteByOpenIdAndId" parameterType="java.util.Map">
+    delete from OpenId2ReceiverMobile_#{tableIndex}
+    where openId = #{openId,jdbcType=VARCHAR} and id = #{id,jdbcType=INTEGER} 
+  </delete>
+  <insert id="insert" parameterType="com.wepiao.user.common.entry.OpenId2ReceiverMobile" >
+    insert into OpenId2ReceiverMobile_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openId != null" >
+        openId,
+      </if>
+      <if test="mobileNo != null" >
+        mobileNo,
+      </if>
+      <if test="serviceType != null" >
+        serviceType,
+      </if>
+      <if test="isVerified != null" >
+        isVerified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumInternalServiceTypeHandler},
+      </if>
+      <if test="isVerified != null" >
+        #{isVerified,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+   <update id="updateByOpenIdAndId" parameterType="com.wepiao.user.common.entry.OpenId2ReceiverMobile" >
+    update OpenId2ReceiverMobile_#{tableIndex}
+    <set>
+      <if test="isVerified != null" >
+        isVerified = #{isVerified,jdbcType=TINYINT},
+      </if>
+    </set>
+    where openId = #{openId,jdbcType=VARCHAR} and id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.VipCardOpsHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.VipCardOpsHistory">
+	<constructor>
+		<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="member_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="mobile_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="card_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="card_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="sub_card_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="total_used" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="new_card_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="vip_card_op_type" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.VipCardOpType" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOpTypeHandler" />
+	    <arg column="op_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,member_id, mobile_no, card_no, card_type, sub_card_type, total_used, new_card_no,vip_card_op_type,op_time
+  </sql>
+  
+   <insert id="insert" parameterType="com.wepiao.user.common.entry.VipCardOpsHistory"
+     useGeneratedKeys="true" keyProperty="id">
+    insert into vip_card_op_history_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="mobileNo != null">
+        mobile_no,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="cardType != null">
+        card_type,
+      </if>
+      <if test="subCardType != null">
+        sub_card_type,
+      </if>
+      <if test="totalUsed != null">
+        total_used,
+      </if>
+      <if test="newCardNo != null">
+        new_card_no,
+      </if>
+      <if test="vipCardOpType != null">
+        vip_card_op_type,
+      </if>
+      <if test="opTime != null">
+        op_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="mobileNo != null">
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null">
+        #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="subCardType != null">
+        #{subCardType,jdbcType=INTEGER},
+      </if>
+      <if test="totalUsed != null">
+        #{totalUsed,jdbcType=INTEGER},
+      </if>
+      <if test="newCardNo != null">
+        #{newCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vipCardOpType != null">
+        #{vipCardOpType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumVipCardOpTypeHandler},
+      </if>
+       <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryOpsHistoryByMemberId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from vip_card_op_history_#{tableIndex}
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

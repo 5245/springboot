@@ -22,8 +22,8 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @date 2016年7月21日
  *
  */
-//@Configuration
-//@MapperScan(basePackages = MybatisConfiguration.PACKAGE)
+@Configuration
+@MapperScan(basePackages = MybatisConfiguration.PACKAGE)
 public class MybatisConfiguration {
 
     public static final String          PACKAGE         = "com.sxk.dao.mapper";
@@ -50,6 +50,7 @@ public class MybatisConfiguration {
         dataSource.setInitialSize(1);
         dataSource.setMinIdle(1);
         dataSource.setMaxActive(20);
+        dataSource.setMaxWait(30000);
         dataSource.setTimeBetweenEvictionRunsMillis(6000);
         dataSource.setMinEvictableIdleTimeMillis(300000);
         dataSource.setValidationQuery("select 'x'");

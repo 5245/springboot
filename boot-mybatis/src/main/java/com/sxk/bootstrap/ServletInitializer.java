@@ -16,7 +16,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @date 2016年7月19日
  *
  */
-public class ServletInitializer extends SpringBootServletInitializer {
+/*public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -41,4 +41,4 @@ public class ServletInitializer extends SpringBootServletInitializer {
         super.onStartup(servletContext);
     }
 
-}
+}*/

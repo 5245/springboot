@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.PrivateVipConfigMapper">
+	<resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.PrivateVipConfig">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="vip_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="vip_level" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="update_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+		</constructor>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,vip_id,vip_level,icon,description,update_time
+	</sql>
+
+	<select id="queryOneByVipId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from pvip_config 
+		where vip_id =
+		#{vipId,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryAllPrivateVipConfig" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pvip_config 
+	</select>
+
+	<insert id="insert" parameterType="com.wepiao.user.common.entry.PrivateVipConfig">
+		insert into pvip_config 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vipId != null">
+				vip_id,
+			</if>
+			<if test="vipLevel != null">
+				vip_level,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vipId != null">
+				#{vipId,jdbcType=INTEGER},
+			</if>
+			<if test="vipLevel != null">
+				#{vipLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.wepiao.user.common.entry.PrivateVipConfig">
+		update pvip_config 
+		<set>
+			<if test="vipLevel != null">
+				vip_level=#{vipLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon=#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description=#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time=#{updateTime,jdbcType=BIGINT},
+			</if>
+		</set>
+		where vip_id = #{vipId,jdbcType=INTEGER}
+	</update>
+</mapper>

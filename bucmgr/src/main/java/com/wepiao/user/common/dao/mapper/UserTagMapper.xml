@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.UserTagMapper">
+	<resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.UserTag">
+		<constructor>
+			<idArg column="rid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="idType" jdbcType="INTEGER"
+				javaType="com.wepiao.user.common.entry.enumeration.OtherID"
+				typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler" />
+			<arg column="tag" jdbcType="VARCHAR" javaType="java.lang.String" />
+		</constructor>
+	</resultMap>
+	<sql id="Base_Column_List">
+		rid, id, idtype, tag
+	</sql>
+
+	<select id="queryUserTagById" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from usertag_#{tableIndex}
+		where id = #{id,jdbcType=VARCHAR} and idtype
+		=
+		#{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+	</select>
+
+	<delete id="deleteUserTag" parameterType="java.util.Map">
+		delete from
+		usertag_#{tableIndex}
+		where id = #{id,jdbcType=VARCHAR} and idtype =
+		#{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+	</delete>
+
+	<insert id="insertUserTag" parameterType="com.wepiao.user.common.entry.UserTag"
+		useGeneratedKeys="true" keyProperty="rid">
+		insert into usertag_#{tableIndex}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rid != null">
+				rid,
+			</if>
+			<if test="id != null">
+				id,
+			</if>
+			<if test="idType != null">
+				idtype,
+			</if>
+			<if test="tag != null">
+				tag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rid != null">
+				#{rid,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="idType != null">
+				#{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+			</if>
+			<if test="tag != null">
+				#{tag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSynUserTag" parameterType="com.wepiao.user.common.entry.UserTag"
+		useGeneratedKeys="true" keyProperty="rid">
+		insert into usertag_#{tableIndex}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rid != null">
+				rid,
+			</if>
+			<if test="id != null">
+				id,
+			</if>
+			<if test="idType != null">
+				idtype,
+			</if>
+			<if test="tag != null">
+				tag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rid != null">
+				#{rid,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="idType != null">
+				#{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+			</if>
+			<if test="tag != null">
+				#{tag,jdbcType=VARCHAR}, 
+			</if>
+		</trim>
+		 on duplicate key update tag=#{tag,jdbcType=VARCHAR}
+	</insert>
+
+	<update id="updateUserTag" parameterType="com.wepiao.user.common.entry.UserTag">
+		update usertag_#{tableIndex}
+		<set>
+			tag = #{tag,jdbcType=VARCHAR},
+		</set>
+		where id = #{id,jdbcType=VARCHAR} and idtype =
+		#{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}
+	</update>
+	
+	<select id="queryUserTag4Warm" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    	select 
+    	<include refid="Base_Column_List" />
+    	from usertag_#{tableIndex} 
+    	limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  	</select>
+</mapper>

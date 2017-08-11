@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wepiao.user.common.dao.UserDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.wepiao.user.common.entry.UserDevice">
+	<constructor>
+	    <idArg column="rid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	    <arg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="idType" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.OtherID" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler" />
+	    <arg column="deviceId" jdbcType="VARCHAR" javaType="java.lang.String" />
+	    <arg column="deviceIdType" jdbcType="INTEGER" javaType="com.wepiao.user.common.entry.enumeration.DeviceIdType" typeHandler="com.wepiao.user.common.entry.enumeration.handler.EnumDeviceIdTypeHandler" />
+	    <arg column="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	    <arg column="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    rid, id, idType, deviceId, deviceIdType, createTime, updateTime
+  </sql>
+  
+  <select id="queryUserDevice" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from userdevice_#{tableIndex}
+    where id = #{id,jdbcType=VARCHAR} order by updatetime
+  </select>
+  
+  <select id="getLatestUsedUserDevice" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from userdevice_#{tableIndex}
+    where id = #{id,jdbcType=VARCHAR} and idType = #{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler} 
+    and updateTime = (select max(updateTime) from userdevice_#{tableIndex} where id = #{id,jdbcType=VARCHAR} and idType = #{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler}) order by rid desc
+  </select>
+  
+   <insert id="insertUserDevice" parameterType="com.wepiao.user.common.entry.UserDevice" useGeneratedKeys="true" keyProperty="rid">
+    insert into userdevice_#{tableIndex}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="idType != null">
+        idType,
+      </if>
+      <if test="deviceId != null">
+        deviceId,
+      </if>
+      <if test="deviceIdType != null">
+        deviceIdType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumOtherIDHandler},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIdType != null">
+        #{deviceIdType,jdbcType=INTEGER,typeHandler=com.wepiao.user.common.entry.enumeration.handler.EnumDeviceIdTypeHandler},
+      </if>
+    </trim>
+    on duplicate key update updateTime = current_timestamp
+  </insert>
+  
+</mapper>
